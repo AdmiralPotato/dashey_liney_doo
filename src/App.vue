@@ -16,6 +16,13 @@
       :key="index"
       :value="dot"
     />
+    <path
+      stroke="#fff"
+      stroke-width="1"
+      stroke-dasharray="4"
+      fill="none"
+      :d="pathData"
+    />
   </svg>
 </template>
 
@@ -54,6 +61,16 @@ export default {
         x: (Math.random() - 0.5) * 200,
         y: (Math.random() - 0.5) * 200
       })
+    }
+  },
+  computed: {
+    pathData () {
+      const dots = this.dots.slice()
+      const firstPoint = dots.shift()
+      return [
+        `M${firstPoint.x},${firstPoint.y}`,
+        ...dots.map((p) => `L${p.x},${p.y}`)
+      ].join( ' ')
     }
   }
 }
